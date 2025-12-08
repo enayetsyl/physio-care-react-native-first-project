@@ -2,15 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../types/navigation';
 import { Text, View } from 'react-native';
+import HomeStackNavigator from './HomeStackNavigator';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 // Placeholder screens for now
-const HomeTab = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Home Tab</Text>
-  </View>
-);
+
 
 const TimelineTab = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -41,7 +38,7 @@ export default function MainTabNavigator() {
     >
       <Tab.Screen 
         name="Home" 
-        component={HomeTab}
+        component={HomeStackNavigator}
         options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen 

@@ -16,6 +16,14 @@ export type MainTabParamList = {
   Profile: undefined;
 };
 
+export type HomeStackParamList = {
+  HomeMain: undefined;
+  GoalDetails: { goalId: string };
+  BookAppointment: undefined;
+};
+
+export type HomeStackNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<HomeStackParamList>;
+
 export type RootNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<RootStackParamList>;
 export type AuthNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<AuthStackParamList>;
 export type MainTabNavigationProp = import('@react-navigation/bottom-tabs').BottomTabNavigationProp<MainTabParamList>;
