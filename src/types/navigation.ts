@@ -20,6 +20,11 @@ export type HomeStackParamList = {
   HomeMain: undefined;
   GoalDetails: { goalId: string };
   BookAppointment: undefined;
+  VideoConsultation: {
+    center: import('./appointment').Center;
+    consultant: import('./appointment').Consultant;
+    sessionType: import('./appointment').SessionType;
+  };
 };
 
 export type HomeStackNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<HomeStackParamList>;
