@@ -3,17 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../types/navigation';
 import { Text, View } from 'react-native';
 import HomeStackNavigator from './HomeStackNavigator';
+import TimelineTab from '../components/screens/TimelineTab';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 // Placeholder screens for now
 
-
-const TimelineTab = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Timeline Tab</Text>
-  </View>
-);
 
 const SupportTab = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
