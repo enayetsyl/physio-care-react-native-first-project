@@ -1,17 +1,11 @@
 import React, { useState, useMemo } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 import { mockSessions } from "../../data/mockSessions";
 import { Session } from "../../types/session";
 import SessionCard from "../ui-molecules/SessionCard";
 import AppointmentDetailsSheet from "../ui-molecules/AppointmentDetailsSheet";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import TabGroup from "../ui-molecules/TabGroup";
 
 type TabType = "upcoming" | "completed" | "cancelled";
 
@@ -90,25 +84,12 @@ export default function TimelineTab() {
         />
       </View>
 
-      {/* Tabs */}
-      <View style={styles.tabsContainer}>
-        {tabs.map((tab) => (
-          <TouchableOpacity
-            key={tab.key}
-            style={[styles.tab, activeTab === tab.key && styles.activeTab]}
-            onPress={() => setActiveTab(tab.key)}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === tab.key && styles.activeTabText,
-              ]}
-            >
-              {tab.label} ({tab.count})
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <TabGroup
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        showCounts
+      />
 
       {/* Sessions List */}
       <FlatList
@@ -159,30 +140,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     fontSize: 16,
-  },
-  tabsContainer: {
-    backgroundColor: "white",
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  tab: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 8,
-    marginHorizontal: 4,
-    borderRadius: 8,
-  },
-  activeTab: {
-    backgroundColor: "#007AFF",
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#8E8E93",
-  },
-  activeTabText: {
-    color: "white",
   },
   listContainer: {
     paddingVertical: 8,

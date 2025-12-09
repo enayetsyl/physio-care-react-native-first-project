@@ -10,6 +10,7 @@ import { mockRegimens } from "../../data/mockRegimen";
 import { Regimen, RegimenTabType } from "../../types/regimen";
 import ProgressBar from "../ui-atoms/ProgressBar";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import TabGroup from "../ui-molecules/TabGroup";
 
 export default function RegimenTab() {
   const [activeTab, setActiveTab] = useState<RegimenTabType>("in-progress");
@@ -44,25 +45,7 @@ export default function RegimenTab() {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ScreenHeader title="My Regimen List" paddingTop={50} />
 
-      {/* Tabs */}
-      <View style={styles.tabs}>
-        {tabs.map((tab) => (
-          <TouchableOpacity
-            key={tab.key}
-            style={[styles.tab, activeTab === tab.key && styles.activeTab]}
-            onPress={() => setActiveTab(tab.key as RegimenTabType)}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === tab.key && styles.activeTabText,
-              ]}
-            >
-              {tab.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Regimen List */}
       <View style={styles.regimenList}>
@@ -140,35 +123,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  tabs: {
-    flexDirection: "row",
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    gap: 8,
-    marginTop: 20,
-  },
-  tab: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E5E5EA",
-  },
-  activeTab: {
-    backgroundColor: "#007AFF",
-    borderColor: "#007AFF",
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#666",
-  },
-  activeTabText: {
-    color: "#fff",
   },
   regimenList: {
     paddingHorizontal: 20,
