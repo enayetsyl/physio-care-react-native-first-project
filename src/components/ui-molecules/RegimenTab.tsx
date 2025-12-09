@@ -11,6 +11,7 @@ import { Regimen, RegimenTabType } from "../../types/regimen";
 import ProgressBar from "../ui-atoms/ProgressBar";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
+import { commonStyles } from "../../styles/common";
 
 export default function RegimenTab() {
   const [activeTab, setActiveTab] = useState<RegimenTabType>("in-progress");
@@ -42,7 +43,10 @@ export default function RegimenTab() {
   ];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={commonStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <ScreenHeader title="My Regimen List" paddingTop={50} />
 
       <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
@@ -120,10 +124,6 @@ export default function RegimenTab() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   regimenList: {
     paddingHorizontal: 20,
   },

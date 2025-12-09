@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockClinicalRecords } from "../../data/mockClinicalRecords";
 import { ProfileStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 export default function ClinicalRecordsScreen() {
   const navigation = useNavigation<ProfileStackNavigationProp>();
@@ -22,7 +23,10 @@ export default function ClinicalRecordsScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={commonStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <ScreenHeader
         title="Clinical Records"
         showBackButton
@@ -73,10 +77,6 @@ export default function ClinicalRecordsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   recordsList: {
     padding: 20,
   },

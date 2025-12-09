@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/AuthContext";
 import { ProfileStackNavigationProp } from "../../types/navigation";
 import Avatar from "../ui-atoms/Avatar";
+import { commonStyles } from "../../styles/common";
 
 export default function ProfileScreen() {
   const { user, setUser } = useAuth();
@@ -46,7 +47,10 @@ export default function ProfileScreen() {
   ];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={commonStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
       {/* Patient Info Card */}
       <View style={styles.infoCard}>
         <Avatar
@@ -97,10 +101,6 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   infoCard: {
     backgroundColor: "#fff",
     margin: 20,

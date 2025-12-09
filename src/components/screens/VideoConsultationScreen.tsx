@@ -19,6 +19,7 @@ import {
 import { HomeStackNavigationProp } from "../../types/navigation";
 import { mockDateSlots } from "../../data/mockAppointments";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 interface VideoConsultationParams {
   center: Center;
@@ -119,7 +120,7 @@ export default function VideoConsultationScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <ScreenHeader
         title="Video Consultation"
         showBackButton
@@ -216,10 +217,6 @@ export default function VideoConsultationScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   scrollView: {
     flex: 1,
   },

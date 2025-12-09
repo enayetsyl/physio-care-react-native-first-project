@@ -12,6 +12,7 @@ import { mockSupportTickets } from "../../data/mockSupport";
 import { SupportTicket } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 export default function PreviousTicketsScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -102,7 +103,7 @@ export default function PreviousTicketsScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.containerLight}>
       <ScreenHeader
         title="Previous Tickets"
         showBackButton
@@ -127,10 +128,6 @@ export default function PreviousTicketsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8f9fa",
-  },
   listContainer: {
     padding: 16,
   },

@@ -6,6 +6,7 @@ import { mockGoals } from "../../data/mockGoals";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProgressBar from "../ui-atoms/ProgressBar";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 type GoalDetailsRouteProp = RouteProp<HomeStackParamList, "GoalDetails">;
 
@@ -18,14 +19,14 @@ export default function GoalDetailsScreen() {
 
   if (!goal) {
     return (
-      <View style={styles.container}>
+      <View style={commonStyles.container}>
         <Text>Goal not found</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <SafeAreaView edges={["top"]} style={styles.safeArea}>
         <ScreenHeader
           showBackButton
@@ -34,7 +35,7 @@ export default function GoalDetailsScreen() {
         />
       </SafeAreaView>
       <ScrollView
-        style={styles.container}
+        style={commonStyles.container}
         contentContainerStyle={styles.content}
       >
         {/* Header */}

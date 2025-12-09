@@ -15,6 +15,7 @@ import GoalCard from "../ui-molecules/GoalCard";
 import HealthChart from "../ui-molecules/HealthChart";
 import TabGroup from "../ui-molecules/TabGroup";
 import { HomeStackNavigationProp } from "../../types/navigation";
+import { commonStyles } from "../../styles/common";
 
 export default function HomeTabMain() {
   const { user } = useAuth();
@@ -34,7 +35,10 @@ export default function HomeTabMain() {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={commonStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <HomeTabHeader userName={userName} />
 
       {/* Book Appointment Button */}
@@ -85,10 +89,6 @@ export default function HomeTabMain() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   bookButton: {
     backgroundColor: "#007AFF",
     marginHorizontal: 20,

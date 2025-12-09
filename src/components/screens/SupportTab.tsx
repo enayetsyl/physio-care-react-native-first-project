@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/AuthContext";
 import { SupportStackNavigationProp } from "../../types/navigation";
 import { mockCenters, mockConsultants } from "../../data/mockAppointments";
+import { commonStyles } from "../../styles/common";
 
 export default function SupportTab() {
   const { user } = useAuth();
@@ -17,26 +18,26 @@ export default function SupportTab() {
 
   const userName = user?.name?.split(" ")[0] || "there";
 
-  const handleActionPress = (actionType: 'chat' | 'video' | 'tickets') => {
+  const handleActionPress = (actionType: "chat" | "video" | "tickets") => {
     switch (actionType) {
-      case 'chat':
-        navigation.navigate('Chat');
+      case "chat":
+        navigation.navigate("Chat");
         break;
-        case 'video':
-          navigation.navigate('VideoConsultation', {
-            center: mockCenters[0],
-            consultant: mockConsultants[0],
-            sessionType: 'online',
-          });
-          break;
-      case 'tickets':
-        navigation.navigate('PreviousTickets');
+      case "video":
+        navigation.navigate("VideoConsultation", {
+          center: mockCenters[0],
+          consultant: mockConsultants[0],
+          sessionType: "online",
+        });
+        break;
+      case "tickets":
+        navigation.navigate("PreviousTickets");
         break;
     }
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={commonStyles.containerLight}>
       <View style={styles.header}>
         <Text style={styles.greeting}>How can we help you, {userName}?</Text>
         <Text style={styles.subtitle}>
@@ -95,10 +96,6 @@ export default function SupportTab() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8f9fa",
-  },
   header: {
     padding: 20,
     paddingTop: 40,

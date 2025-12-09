@@ -14,6 +14,7 @@ import { ChatConversation } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import Avatar from "../ui-atoms/Avatar";
+import { commonStyles } from "../../styles/common";
 
 export default function ChatScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -91,7 +92,7 @@ export default function ChatScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.containerLight}>
       <ScreenHeader
         title="Chat with Us"
         showBackButton
@@ -120,10 +121,6 @@ export default function ChatScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8f9fa",
-  },
   searchContainer: {
     backgroundColor: "#fff",
     padding: 16,

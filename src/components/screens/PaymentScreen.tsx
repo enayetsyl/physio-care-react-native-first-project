@@ -13,6 +13,7 @@ import {
 } from "../../data/mockPaymentRecords";
 import { ProfileStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 export default function PaymentsScreen() {
   const navigation = useNavigation<ProfileStackNavigationProp>();
@@ -22,7 +23,10 @@ export default function PaymentsScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={commonStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <ScreenHeader
         title="Payments"
         showBackButton
@@ -105,10 +109,6 @@ export default function PaymentsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   section: {
     marginTop: 20,
     paddingHorizontal: 20,

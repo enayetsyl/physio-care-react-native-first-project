@@ -6,6 +6,7 @@ import SessionCard from "../ui-molecules/SessionCard";
 import AppointmentDetailsSheet from "../ui-molecules/AppointmentDetailsSheet";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
+import { commonStyles } from "../../styles/common";
 
 type TabType = "upcoming" | "completed" | "cancelled";
 
@@ -71,7 +72,7 @@ export default function TimelineTab() {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <ScreenHeader title="My Appointments" />
 
       {/* Search Bar */}
@@ -123,10 +124,6 @@ export default function TimelineTab() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F2F2F7",
-  },
   searchContainer: {
     backgroundColor: "white",
     paddingHorizontal: 16,

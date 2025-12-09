@@ -14,6 +14,7 @@ import { HomeStackNavigationProp } from "../../types/navigation";
 import SessionTypeSelector from "../ui-molecules/SessionTypeSelector";
 import LocationSelector from "../ui-molecules/LocationSelector";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import { commonStyles } from "../../styles/common";
 
 export default function BookAppointmentScreen() {
   const navigation = useNavigation<HomeStackNavigationProp>();
@@ -103,6 +104,7 @@ export default function BookAppointmentScreen() {
       keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={Header}
       ListFooterComponent={Footer}
+      style={commonStyles.container}
       contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
@@ -113,13 +115,11 @@ export default function BookAppointmentScreen() {
 const styles = StyleSheet.create({
   contentContainer: {
     paddingBottom: 40,
-    backgroundColor: "#f5f5f5",
     flexGrow: 1,
   },
   buttonContainer: {
     padding: 20,
     paddingBottom: 40,
-    backgroundColor: "#f5f5f5",
   },
   proceedButton: {
     backgroundColor: "#007AFF",
