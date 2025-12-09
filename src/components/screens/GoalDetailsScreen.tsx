@@ -5,7 +5,7 @@ import { HomeStackParamList } from "../../types/navigation";
 import { mockGoals } from "../../data/mockGoals";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProgressBar from "../ui-atoms/ProgressBar";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 type GoalDetailsRouteProp = RouteProp<HomeStackParamList, "GoalDetails">;
 
@@ -27,9 +27,11 @@ export default function GoalDetailsScreen() {
   return (
     <View style={styles.container}>
       <SafeAreaView edges={["top"]} style={styles.safeArea}>
-        <View style={styles.header}>
-          <BackButton onPress={() => navigation.goBack()} />
-        </View>
+        <ScreenHeader
+          showBackButton
+          onBackPress={() => navigation.goBack()}
+          paddingTop={16}
+        />
       </SafeAreaView>
       <ScrollView
         style={styles.container}
@@ -116,9 +118,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-  },
-  header: {
-    marginBottom: 10,
   },
   section: {
     backgroundColor: "#fff",

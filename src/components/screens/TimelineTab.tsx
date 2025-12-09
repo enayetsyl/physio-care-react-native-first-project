@@ -1,43 +1,46 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
+import React, { useState, useMemo } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
   TextInput,
-  FlatList
-} from 'react-native';
-import { mockSessions } from '../../data/mockSessions';
-import { Session } from '../../types/session';
-import SessionCard from '../ui-molecules/SessionCard';
-import AppointmentDetailsSheet from '../ui-molecules/AppointmentDetailsSheet';
+  FlatList,
+} from "react-native";
+import { mockSessions } from "../../data/mockSessions";
+import { Session } from "../../types/session";
+import SessionCard from "../ui-molecules/SessionCard";
+import AppointmentDetailsSheet from "../ui-molecules/AppointmentDetailsSheet";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
-type TabType = 'upcoming' | 'completed' | 'cancelled';
+type TabType = "upcoming" | "completed" | "cancelled";
 
 export default function TimelineTab() {
-  const [activeTab, setActiveTab] = useState<TabType>('upcoming');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<TabType>("upcoming");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [showDetails, setShowDetails] = useState(false);
 
   const filteredSessions = useMemo(() => {
-    let sessions = mockSessions.filter(session => session.status === activeTab);
-    
+    let sessions = mockSessions.filter(
+      (session) => session.status === activeTab
+    );
+
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      sessions = sessions.filter(session =>
-        session.consultant.name.toLowerCase().includes(query) ||
-        session.type.toLowerCase().includes(query) ||
-        session.date.includes(query)
+      sessions = sessions.filter(
+        (session) =>
+          session.consultant.name.toLowerCase().includes(query) ||
+          session.type.toLowerCase().includes(query) ||
+          session.date.includes(query)
       );
     }
-    
+
     // Sort by date (most recent first for completed/cancelled, upcoming first for upcoming)
     return sessions.sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
-      return activeTab === 'upcoming' ? dateA - dateB : dateB - dateA;
+      return activeTab === "upcoming" ? dateA - dateB : dateB - dateA;
     });
   }, [activeTab, searchQuery]);
 
@@ -56,17 +59,26 @@ export default function TimelineTab() {
   );
 
   const tabs: { key: TabType; label: string; count: number }[] = [
-    { key: 'upcoming', label: 'Upcoming', count: mockSessions.filter(s => s.status === 'upcoming').length },
-    { key: 'completed', label: 'Completed', count: mockSessions.filter(s => s.status === 'completed').length },
-    { key: 'cancelled', label: 'Cancelled', count: mockSessions.filter(s => s.status === 'cancelled').length },
+    {
+      key: "upcoming",
+      label: "Upcoming",
+      count: mockSessions.filter((s) => s.status === "upcoming").length,
+    },
+    {
+      key: "completed",
+      label: "Completed",
+      count: mockSessions.filter((s) => s.status === "completed").length,
+    },
+    {
+      key: "cancelled",
+      label: "Cancelled",
+      count: mockSessions.filter((s) => s.status === "cancelled").length,
+    },
   ];
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>My Appointments</Text>
-      </View>
+      <ScreenHeader title="My Appointments" />
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
@@ -83,16 +95,15 @@ export default function TimelineTab() {
         {tabs.map((tab) => (
           <TouchableOpacity
             key={tab.key}
-            style={[
-              styles.tab,
-              activeTab === tab.key && styles.activeTab
-            ]}
+            style={[styles.tab, activeTab === tab.key && styles.activeTab]}
             onPress={() => setActiveTab(tab.key)}
           >
-            <Text style={[
-              styles.tabText,
-              activeTab === tab.key && styles.activeTabText
-            ]}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === tab.key && styles.activeTabText,
+              ]}
+            >
               {tab.label} ({tab.count})
             </Text>
           </TouchableOpacity>
@@ -133,78 +144,65 @@ export default function TimelineTab() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
-  },
-  header: {
-    paddingTop: 40,
-    backgroundColor: 'white',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#1C1C1E',
+    backgroundColor: "#F2F2F7",
   },
   searchContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: "#E5E5EA",
   },
   searchInput: {
-    backgroundColor: '#F2F2F7',
+    backgroundColor: "#F2F2F7",
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 8,
     fontSize: 16,
   },
   tabsContainer: {
-    backgroundColor: 'white',
-    flexDirection: 'row',
+    backgroundColor: "white",
+    flexDirection: "row",
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
   tab: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 8,
     marginHorizontal: 4,
     borderRadius: 8,
   },
   activeTab: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
   },
   tabText: {
     fontSize: 14,
-    fontWeight: '500',
-    color: '#8E8E93',
+    fontWeight: "500",
+    color: "#8E8E93",
   },
   activeTabText: {
-    color: 'white',
+    color: "white",
   },
   listContainer: {
     paddingVertical: 8,
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: 100,
   },
   emptyText: {
     fontSize: 18,
-    fontWeight: '500',
-    color: '#8E8E93',
-    textAlign: 'center',
+    fontWeight: "500",
+    color: "#8E8E93",
+    textAlign: "center",
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#C7C7CC',
-    textAlign: 'center',
+    color: "#C7C7CC",
+    textAlign: "center",
     marginTop: 8,
   },
 });

@@ -1,9 +1,15 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { mockClinicalRecords } from "../../data/mockClinicalRecords";
 import { ProfileStackNavigationProp } from "../../types/navigation";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 export default function ClinicalRecordsScreen() {
   const navigation = useNavigation<ProfileStackNavigationProp>();
@@ -17,14 +23,13 @@ export default function ClinicalRecordsScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <BackButton
-          onPress={() => navigation.goBack()}
-          label=""
-          icon="chevron"
-        />
-        <Text style={styles.title}>Clinical Records</Text>
-      </View>
+      <ScreenHeader
+        title="Clinical Records"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        backButtonProps={{ icon: "chevron", label: "" }}
+        paddingTop={40}
+      />
 
       <View style={styles.recordsList}>
         {mockClinicalRecords.map((record) => (
@@ -71,18 +76,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 20,
-    backgroundColor: "#fff",
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
   },
   recordsList: {
     padding: 20,

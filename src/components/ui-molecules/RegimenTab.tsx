@@ -9,6 +9,7 @@ import {
 import { mockRegimens } from "../../data/mockRegimen";
 import { Regimen, RegimenTabType } from "../../types/regimen";
 import ProgressBar from "../ui-atoms/ProgressBar";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 export default function RegimenTab() {
   const [activeTab, setActiveTab] = useState<RegimenTabType>("in-progress");
@@ -41,9 +42,7 @@ export default function RegimenTab() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <Text style={styles.title}>My Regimen List</Text>
-      </View>
+      <ScreenHeader title="My Regimen List" paddingTop={50} />
 
       {/* Tabs */}
       <View style={styles.tabs}>
@@ -141,16 +140,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  header: {
-    padding: 20,
-    paddingTop: 50,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
   },
   tabs: {
     flexDirection: "row",

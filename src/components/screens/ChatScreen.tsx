@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockChatConversations } from "../../data/mockSupport";
 import { ChatConversation } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 import Avatar from "../ui-atoms/Avatar";
 
 export default function ChatScreen() {
@@ -92,16 +92,12 @@ export default function ChatScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <BackButton
-          onPress={() => navigation.goBack()}
-          label=""
-          icon="arrow"
-          style={styles.backButton}
-          textStyle={styles.backText}
-        />
-        <Text style={styles.headerTitle}>Chat with Us</Text>
-      </View>
+      <ScreenHeader
+        title="Chat with Us"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        backButtonProps={{ label: "" }}
+      />
 
       <View style={styles.searchContainer}>
         <TextInput
@@ -127,31 +123,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f8f9fa",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 16,
-    paddingTop: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  backButton: {
-    marginRight: 16,
-  },
-  backText: {
-    fontSize: 24,
-    color: "#007AFF",
-    fontWeight: "bold",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#1a1a1a",
   },
   searchContainer: {
     backgroundColor: "#fff",

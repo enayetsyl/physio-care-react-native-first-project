@@ -13,7 +13,7 @@ import { Center, Consultant, SessionType } from "../../types/appointment";
 import { HomeStackNavigationProp } from "../../types/navigation";
 import SessionTypeSelector from "../ui-molecules/SessionTypeSelector";
 import LocationSelector from "../ui-molecules/LocationSelector";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 export default function BookAppointmentScreen() {
   const navigation = useNavigation<HomeStackNavigationProp>();
@@ -49,19 +49,18 @@ export default function BookAppointmentScreen() {
 
   const Header = () => (
     <View>
-      {/* Header */}
-      <View style={styles.header}>
-        <BackButton onPress={() => navigation.goBack()} />
-        <Text style={styles.title}>Book Appointment</Text>
-      </View>
+      <ScreenHeader
+        title="Book Appointment"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        paddingTop={40}
+      />
 
-      {/* Session Type Selector */}
       <SessionTypeSelector
         selectedType={sessionType}
         onTypeChange={setSessionType}
       />
 
-      {/* Location & Consultant Selector */}
       <LocationSelector
         sessionType={sessionType}
         selectedCenter={selectedCenter}
@@ -116,18 +115,6 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     backgroundColor: "#f5f5f5",
     flexGrow: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E5E5EA",
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
   },
   buttonContainer: {
     padding: 20,

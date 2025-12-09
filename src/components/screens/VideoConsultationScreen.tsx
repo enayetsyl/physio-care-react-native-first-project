@@ -18,7 +18,7 @@ import {
 } from "../../types/appointment";
 import { HomeStackNavigationProp } from "../../types/navigation";
 import { mockDateSlots } from "../../data/mockAppointments";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 interface VideoConsultationParams {
   center: Center;
@@ -120,11 +120,12 @@ export default function VideoConsultationScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <BackButton onPress={() => navigation.goBack()} />
-        <Text style={styles.title}>Video Consultation</Text>
-      </View>
+      <ScreenHeader
+        title="Video Consultation"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        paddingTop={60}
+      />
 
       <ScrollView
         style={styles.scrollView}
@@ -218,18 +219,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  header: {
-    padding: 20,
-    paddingTop: 60,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E5E5EA",
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
   },
   scrollView: {
     flex: 1,

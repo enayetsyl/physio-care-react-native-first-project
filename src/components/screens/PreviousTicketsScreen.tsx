@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockSupportTickets } from "../../data/mockSupport";
 import { SupportTicket } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 export default function PreviousTicketsScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -103,16 +103,12 @@ export default function PreviousTicketsScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <BackButton
-          onPress={() => navigation.goBack()}
-          label=""
-          icon="arrow"
-          style={styles.backButton}
-          textStyle={styles.backText}
-        />
-        <Text style={styles.headerTitle}>Previous Tickets</Text>
-      </View>
+      <ScreenHeader
+        title="Previous Tickets"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        backButtonProps={{ label: "" }}
+      />
 
       <FlatList
         data={mockSupportTickets}
@@ -134,31 +130,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f8f9fa",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 16,
-    paddingTop: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  backButton: {
-    marginRight: 16,
-  },
-  backText: {
-    fontSize: 24,
-    color: "#007AFF",
-    fontWeight: "bold",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#1a1a1a",
   },
   listContainer: {
     padding: 16,

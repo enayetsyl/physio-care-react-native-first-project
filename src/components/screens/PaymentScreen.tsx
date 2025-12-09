@@ -12,7 +12,7 @@ import {
   mockPaymentTransactions,
 } from "../../data/mockPaymentRecords";
 import { ProfileStackNavigationProp } from "../../types/navigation";
-import BackButton from "../ui-atoms/BackButton";
+import ScreenHeader from "../ui-molecules/ScreenHeader";
 
 export default function PaymentsScreen() {
   const navigation = useNavigation<ProfileStackNavigationProp>();
@@ -23,14 +23,13 @@ export default function PaymentsScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <BackButton
-          onPress={() => navigation.goBack()}
-          label=""
-          icon="chevron"
-        />
-        <Text style={styles.title}>Payments</Text>
-      </View>
+      <ScreenHeader
+        title="Payments"
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+        backButtonProps={{ icon: "chevron", label: "" }}
+        paddingTop={40}
+      />
 
       {/* Saved Payment Methods */}
       <View style={styles.section}>
@@ -109,18 +108,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 20,
-    paddingTop: 40,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
   },
   section: {
     marginTop: 20,
