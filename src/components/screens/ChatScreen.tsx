@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockChatConversations } from "../../data/mockSupport";
 import { ChatConversation } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
+import Avatar from "../ui-atoms/Avatar";
 
 export default function ChatScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -64,15 +65,7 @@ export default function ChatScreen() {
       style={styles.conversationItem}
       onPress={() => handleConversationPress(item)}
     >
-      <View style={styles.avatarContainer}>
-        <Text style={styles.avatarText}>
-          {item.name
-            .split(" ")
-            .map((n) => n[0])
-            .join("")
-            .slice(0, 2)}
-        </Text>
-      </View>
+      <Avatar name={item.name} size={50} style={{ marginRight: 16 }} />
 
       <View style={styles.conversationContent}>
         <View style={styles.conversationHeader}>
@@ -185,20 +178,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
-  },
-  avatarContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#007AFF",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 16,
-  },
-  avatarText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   conversationContent: {
     flex: 1,

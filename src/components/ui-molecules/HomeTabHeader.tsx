@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Avatar from "../ui-atoms/Avatar";
 
 interface HomeTabHeaderProps {
   userName: string;
@@ -8,59 +9,35 @@ interface HomeTabHeaderProps {
 export default function HomeTabHeader({ userName }: HomeTabHeaderProps) {
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
-  };
-
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
+    return "Good Evening";
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.greeting}>
-        {getGreeting()}, {userName.split(' ')[0]}!
+        {getGreeting()}, {userName.split(" ")[0]}!
       </Text>
-      <View style={styles.avatar}>
-        <Text style={styles.avatarText}>{getInitials(userName)}</Text>
-      </View>
+      <Avatar name={userName} size={44} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 16,
-    backgroundColor: '#fff',
-    marginTop:20,
+    backgroundColor: "#fff",
+    marginTop: 20,
   },
   greeting: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  avatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "bold",
+    color: "#333",
   },
 });
