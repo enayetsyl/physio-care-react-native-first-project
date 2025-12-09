@@ -1,18 +1,25 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { HomeStackParamList } from '../../types/navigation';
-import { mockGoals } from '../../data/mockGoals';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import { HomeStackParamList } from "../../types/navigation";
+import { mockGoals } from "../../data/mockGoals";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ProgressBar from "../ui-atoms/ProgressBar";
 
-type GoalDetailsRouteProp = RouteProp<HomeStackParamList, 'GoalDetails'>;
+type GoalDetailsRouteProp = RouteProp<HomeStackParamList, "GoalDetails">;
 
 export default function GoalDetailsScreen() {
   const navigation = useNavigation();
   const route = useRoute<GoalDetailsRouteProp>();
   const { goalId } = route.params;
 
-  const goal = mockGoals.find(g => g.id === goalId);
+  const goal = mockGoals.find((g) => g.id === goalId);
 
   if (!goal) {
     return (
@@ -24,9 +31,9 @@ export default function GoalDetailsScreen() {
 
   return (
     <View style={styles.container}>
-       <SafeAreaView edges={['top']} style={styles.safeArea}>
+      <SafeAreaView edges={["top"]} style={styles.safeArea}>
         <View style={styles.header}>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButtonContainer}
             activeOpacity={0.7}
@@ -35,85 +42,77 @@ export default function GoalDetailsScreen() {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Header */}
-     
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+      >
+        {/* Header */}
 
-      {/* Goal Info */}
-      <View style={styles.section}>
-        <Text style={styles.name}>{goal.name}</Text>
-        <Text style={styles.type}>{goal.type}</Text>
-      </View>
-
-      {/* Progress */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Progress</Text>
-        <Text style={styles.progressText}>{goal.progress}% completed</Text>
-        <View style={styles.progressBarContainer}>
-          <View style={styles.progressBarBackground}>
-            <View 
-              style={[
-                styles.progressBarFill, 
-                { width: `${goal.progress}%` }
-              ]} 
-            />
-          </View>
-        </View>
-      </View>
-
-      {/* Current & Target */}
-      {goal.current !== undefined && goal.target !== undefined && (
+        {/* Goal Info */}
         <View style={styles.section}>
-          <View style={styles.metricRow}>
-            <View style={styles.metric}>
-              <Text style={styles.metricLabel}>Current</Text>
-              <Text style={styles.metricValue}>
-                {goal.current} {goal.unit || ''}
-              </Text>
-            </View>
-            <View style={styles.metric}>
-              <Text style={styles.metricLabel}>Target</Text>
-              <Text style={styles.metricValue}>
-                {goal.target} {goal.unit || ''}
-              </Text>
+          <Text style={styles.name}>{goal.name}</Text>
+          <Text style={styles.type}>{goal.type}</Text>
+        </View>
+
+        {/* Progress */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Progress</Text>
+          <Text style={styles.progressText}>{goal.progress}% completed</Text>
+          <ProgressBar progress={goal.progress} />
+        </View>
+
+        {/* Current & Target */}
+        {goal.current !== undefined && goal.target !== undefined && (
+          <View style={styles.section}>
+            <View style={styles.metricRow}>
+              <View style={styles.metric}>
+                <Text style={styles.metricLabel}>Current</Text>
+                <Text style={styles.metricValue}>
+                  {goal.current} {goal.unit || ""}
+                </Text>
+              </View>
+              <View style={styles.metric}>
+                <Text style={styles.metricLabel}>Target</Text>
+                <Text style={styles.metricValue}>
+                  {goal.target} {goal.unit || ""}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      )}
-
-      {/* Metadata */}
-      <View style={styles.section}>
-        <View style={styles.metaRow}>
-          <Text style={styles.metaLabel}>Priority:</Text>
-          <Text style={styles.metaValue}>{goal.priority}</Text>
-        </View>
-        <View style={styles.metaRow}>
-          <Text style={styles.metaLabel}>Status:</Text>
-          <Text style={styles.metaValue}>{goal.status}</Text>
-        </View>
-        {goal.targetDate && (
-          <View style={styles.metaRow}>
-            <Text style={styles.metaLabel}>Target Date:</Text>
-            <Text style={styles.metaValue}>{goal.targetDate}</Text>
-          </View>
         )}
-        {goal.lastUpdated && (
-          <View style={styles.metaRow}>
-            <Text style={styles.metaLabel}>Last Updated:</Text>
-            <Text style={styles.metaValue}>{goal.lastUpdated}</Text>
-          </View>
-        )}
-      </View>
 
-      {/* Latest Achievement */}
-      {goal.latestAchievement && (
+        {/* Metadata */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Latest Achievement</Text>
-          <Text style={styles.achievementText}>{goal.latestAchievement}</Text>
+          <View style={styles.metaRow}>
+            <Text style={styles.metaLabel}>Priority:</Text>
+            <Text style={styles.metaValue}>{goal.priority}</Text>
+          </View>
+          <View style={styles.metaRow}>
+            <Text style={styles.metaLabel}>Status:</Text>
+            <Text style={styles.metaValue}>{goal.status}</Text>
+          </View>
+          {goal.targetDate && (
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>Target Date:</Text>
+              <Text style={styles.metaValue}>{goal.targetDate}</Text>
+            </View>
+          )}
+          {goal.lastUpdated && (
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>Last Updated:</Text>
+              <Text style={styles.metaValue}>{goal.lastUpdated}</Text>
+            </View>
+          )}
         </View>
-      )}
-    </ScrollView>
 
+        {/* Latest Achievement */}
+        {goal.latestAchievement && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Latest Achievement</Text>
+            <Text style={styles.achievementText}>{goal.latestAchievement}</Text>
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 }
@@ -121,10 +120,10 @@ export default function GoalDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   safeArea: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   content: {
     padding: 20,
@@ -133,94 +132,79 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   backButtonContainer: {
-   
     paddingRight: 16,
     paddingLeft: 16,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     minHeight: 22, // Minimum touch target size
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backButton: {
     fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '600',
+    color: "#007AFF",
+    fontWeight: "600",
   },
   section: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
   },
   name: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 4,
   },
   type: {
     fontSize: 16,
-    color: '#007AFF',
+    color: "#007AFF",
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 12,
   },
   progressText: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 8,
   },
-  progressBarContainer: {
-    marginTop: 8,
-  },
-  progressBarBackground: {
-    height: 12,
-    backgroundColor: '#E5E5EA',
-    borderRadius: 6,
-    overflow: 'hidden',
-  },
-  progressBarFill: {
-    height: '100%',
-    backgroundColor: '#007AFF',
-    borderRadius: 6,
-  },
   metricRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   metric: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   metricLabel: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginBottom: 4,
   },
   metricValue: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   metaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 8,
   },
   metaLabel: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   metaValue: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    textTransform: 'capitalize',
+    fontWeight: "600",
+    color: "#333",
+    textTransform: "capitalize",
   },
   achievementText: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
     lineHeight: 20,
   },
 });
