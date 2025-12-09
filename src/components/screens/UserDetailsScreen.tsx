@@ -12,104 +12,177 @@ import { Picker } from '@react-native-picker/picker';
 import { useAuth } from '../../context/AuthContext';
 import { AuthNavigationProp } from '../../types/navigation';
 import { User } from '../../types/user';
+import { useNavigation } from '@react-navigation/native';
+
 
 interface Props {
   navigation: AuthNavigationProp;
 }
 
-export default function UserDetailsScreen({ navigation }: Props) {
-  const { setUser } = useAuth();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState<'male' | 'female' | 'other'>('male');
+export default function UserDetailsScreen() {
+  const { user, setUser } = useAuth();
+  const navigation = useNavigation<AuthNavigationProp>();
+  const [formData, setFormData] = useState({
+    name: user?.name || '',
+    dateOfBirth: user?.dateOfBirth || '',
+    gender: user?.gender || '',
+    email: user?.email || '',
+    age: user?.age?.toString() || '',
+    weight: user?.weight?.toString() || '',
+    height: user?.height?.toString() || '',
+    bloodGroup: user?.bloodGroup || '',
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleProceed = () => {
-    // Basic validation
-    if (!name.trim()) {
-      Alert.alert('Validation Error', 'Please enter your full name');
+    if (!formData.name.trim()) {
+      Alert.alert('Error', 'Please enter your full name');
+      return;
+    }
+    if (!formData.email.trim()) {
+      Alert.alert('Error', 'Please enter your email');
       return;
     }
 
-    if (!email.trim() || !email.includes('@')) {
-      Alert.alert('Validation Error', 'Please enter a valid email address');
-      return;
-    }
+    // Update user with form data
+    setUser({
+      id: user?.id,
+      mobile: user?.mobile || '', // Ensure mobile is always a string
+      name: formData.name,
+      dateOfBirth: formData.dateOfBirth,
+      gender: formData.gender as 'male' | 'female' | 'other',
+      email: formData.email,
+      age: formData.age ? parseInt(formData.age) : undefined,
+      weight: formData.weight ? parseInt(formData.weight) : undefined,
+      height: formData.height ? parseInt(formData.height) : undefined,
+      bloodGroup: formData.bloodGroup,
+    });
 
-    // Create user object
-    const user: User = {
-      name: name.trim(),
-      email: email.trim(),
-      mobile: '', // Will be set from route params if needed
-      dateOfBirth: dateOfBirth || undefined,
-      gender,
-    };
 
-    // Set user in context (this will trigger navigation to Main tabs)
-    setUser(user);
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>Complete Your Profile</Text>
-      <Text style={styles.subtitle}>Please fill in your details</Text>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.content}>
+        <Text style={styles.title}>Personal Information</Text>
+        <Text style={styles.subtitle}>
+          Please provide your details to complete the setup
+        </Text>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Full Name *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your full name"
-          placeholderTextColor="#999"
-          value={name}
-          onChangeText={setName}
-        />
-      </View>
+        <View style={styles.form}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Full Name *</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.name}
+              onChangeText={(value) => handleInputChange('name', value)}
+              placeholder="Enter your full name"
+            />
+          </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email ID *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          placeholderTextColor="#999"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Date of Birth</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.dateOfBirth}
+              onChangeText={(value) => handleInputChange('dateOfBirth', value)}
+              placeholder="DD/MM/YYYY"
+            />
+          </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Date of Birth</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="DD/MM/YYYY"
-          placeholderTextColor="#999"
-          value={dateOfBirth}
-          onChangeText={setDateOfBirth}
-        />
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Age</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.age}
+              onChangeText={(value) => handleInputChange('age', value)}
+              placeholder="Enter your age"
+              keyboardType="numeric"
+            />
+          </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Gender</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={gender}
-            onValueChange={(value: 'male' | 'female' | 'other') => setGender(value)}
-            style={styles.picker}
-          >
-            <Picker.Item label="Male" value="male" />
-            <Picker.Item label="Female" value="female" />
-            <Picker.Item label="Other" value="other" />
-          </Picker>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Gender</Text>
+            <View style={styles.radioGroup}>
+              {['male', 'female', 'other'].map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={[
+                    styles.radioOption,
+                    formData.gender === option && styles.radioSelected,
+                  ]}
+                  onPress={() => handleInputChange('gender', option)}
+                >
+                  <Text
+                    style={[
+                      styles.radioText,
+                      formData.gender === option && styles.radioTextSelected,
+                    ]}
+                  >
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Weight (kg)</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.weight}
+              onChangeText={(value) => handleInputChange('weight', value)}
+              placeholder="Enter your weight"
+              keyboardType="numeric"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Height (cm)</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.height}
+              onChangeText={(value) => handleInputChange('height', value)}
+              placeholder="Enter your height"
+              keyboardType="numeric"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Blood Group</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.bloodGroup}
+              onChangeText={(value) => handleInputChange('bloodGroup', value)}
+              placeholder="e.g., O+, A-, B+"
+              autoCapitalize="characters"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Email ID *</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.email}
+              onChangeText={(value) => handleInputChange('email', value)}
+              placeholder="Enter your email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={handleProceed}>
+            <Text style={styles.buttonText}>Proceed to Home</Text>
+          </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleProceed}>
-        <Text style={styles.buttonText}>Proceed to Home</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

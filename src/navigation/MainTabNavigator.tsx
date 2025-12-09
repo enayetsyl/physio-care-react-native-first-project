@@ -1,20 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MainTabParamList } from "../types/navigation";
-import { Text, View } from "react-native";
+
 import HomeStackNavigator from "./HomeStackNavigator";
 import TimelineTab from "../components/screens/TimelineTab";
 import SupportStackNavigator from "./SupportStackNavigator";
+import ProfileStackNavigator from "./ProfileStackNavigator";
+import RegimenTab from "../components/ui-molecules/RegimenTab";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
-
-// Placeholder screens for now
-
-const ProfileTab = () => (
-  <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text>Profile Tab</Text>
-  </View>
-);
 
 export default function MainTabNavigator() {
   return (
@@ -35,6 +29,11 @@ export default function MainTabNavigator() {
         component={TimelineTab}
         options={{ tabBarLabel: "Timeline" }}
       />
+       <Tab.Screen
+        name="Regimen"
+        component={RegimenTab}
+        options={{ tabBarLabel: "Regimen" }}
+      />
       <Tab.Screen
         name="Support"
         component={SupportStackNavigator}
@@ -42,7 +41,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileTab}
+        component={ProfileStackNavigator}
         options={{ tabBarLabel: "Profile" }}
       />
     </Tab.Navigator>

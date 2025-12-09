@@ -1,0 +1,90 @@
+import { Regimen } from '../types/regimen';
+
+export const mockRegimens: Regimen[] = [
+  {
+    id: '1',
+    name: 'Knee Strengthening Program',
+    status: 'in-progress',
+    totalExercises: 8,
+    completedExercises: 5,
+    startDate: '2024-10-15',
+    endDate: '2024-12-15',
+    exercises: [
+      {
+        id: '1',
+        name: 'Squats',
+        sets: 3,
+        reps: 10,
+        weight: 20,
+        instructions: 'Stand with feet shoulder-width apart, lower body as if sitting back into a chair',
+      },
+      {
+        id: '2',
+        name: 'Leg Press',
+        sets: 3,
+        reps: 12,
+        weight: 50,
+        instructions: 'Push the platform away by extending your legs, then slowly return to start position',
+      },
+      {
+        id: '3',
+        name: 'Calf Raises',
+        sets: 3,
+        reps: 15,
+        instructions: 'Rise up onto toes, then lower heels back to ground',
+      },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Shoulder Rehabilitation',
+    status: 'not-started',
+    totalExercises: 6,
+    completedExercises: 0,
+    startDate: '2024-11-20',
+    endDate: '2025-01-20',
+    exercises: [
+      {
+        id: '4',
+        name: 'Shoulder Rolls',
+        sets: 3,
+        reps: 10,
+        instructions: 'Roll shoulders forward and backward in a circular motion',
+      },
+      {
+        id: '5',
+        name: 'Wall Push-ups',
+        sets: 3,
+        reps: 8,
+        instructions: 'Stand facing wall, place hands on wall and perform push-up motion',
+      },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Back Pain Relief Program',
+    status: 'completed',
+    totalExercises: 10,
+    completedExercises: 10,
+    startDate: '2024-09-01',
+    endDate: '2024-10-01',
+    exercises: [
+      {
+        id: '6',
+        name: 'Cat-Cow Stretch',
+        sets: 3,
+        reps: 10,
+        duration: '30 seconds',
+        instructions: 'Alternate between arching and rounding your back while on hands and knees',
+      },
+      {
+        id: '7',
+        name: 'Childs Pose',
+        sets: 3,
+        reps: 10,
+        duration: '1 minute',
+        instructions: 'Kneel and fold forward, extending arms in front',
+      },
+    ],
+  },
+];

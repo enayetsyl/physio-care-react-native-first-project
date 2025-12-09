@@ -5,4 +5,8 @@ export interface User {
   email: string;
   dateOfBirth?: string;
   gender?: 'male' | 'female' | 'other';
+  age?: number;
+  weight?: number;
+  height?: number;
+  bloodGroup?: string;
 }

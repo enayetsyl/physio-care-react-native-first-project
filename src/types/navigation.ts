@@ -12,6 +12,7 @@ export type AuthStackParamList = {
 export type MainTabParamList = {
   Home: undefined;
   Timeline: undefined;
+  Regimen: undefined;
   Support: undefined;
   Profile: undefined;
 };
@@ -38,9 +39,17 @@ export type SupportStackParamList = {
   };
 };
 
+export type ProfileStackParamList = {
+  ProfileMain: undefined;
+  ClinicalRecords: undefined;
+  MyAppointments: undefined;
+  Payments: undefined;
+};
 
 export type HomeStackNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<HomeStackParamList>;
 export type SupportStackNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<SupportStackParamList>;
 export type RootNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<RootStackParamList>;
 export type AuthNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<AuthStackParamList>;
 export type MainTabNavigationProp = import('@react-navigation/bottom-tabs').BottomTabNavigationProp<MainTabParamList>;
+
+export type ProfileStackNavigationProp = import('@react-navigation/native-stack').NativeStackNavigationProp<ProfileStackParamList>;
