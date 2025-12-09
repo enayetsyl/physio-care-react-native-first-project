@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { mockSessions } from "../../data/mockSessions";
 import { Session } from "../../types/session";
 import SessionCard from "../ui-molecules/SessionCard";
@@ -7,6 +7,7 @@ import AppointmentDetailsSheet from "../ui-molecules/AppointmentDetailsSheet";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
 import { commonStyles } from "../../styles/common";
+import SearchInput from "../ui-atoms/SearchInput";
 
 type TabType = "upcoming" | "completed" | "cancelled";
 
@@ -77,8 +78,7 @@ export default function TimelineTab() {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
+        <SearchInput
           placeholder="Search by consultant, type, or date..."
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -130,13 +130,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#E5E5EA",
-  },
-  searchInput: {
-    backgroundColor: "#F2F2F7",
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    fontSize: 16,
   },
   listContainer: {
     paddingVertical: 8,

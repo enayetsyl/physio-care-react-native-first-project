@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   FlatList,
   TouchableOpacity,
   Alert,
@@ -15,6 +14,7 @@ import { SupportStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import Avatar from "../ui-atoms/Avatar";
 import { commonStyles } from "../../styles/common";
+import SearchInput from "../ui-atoms/SearchInput";
 
 export default function ChatScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -101,8 +101,7 @@ export default function ChatScreen() {
       />
 
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
+        <SearchInput
           placeholder="Search conversations..."
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -124,14 +123,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: "#fff",
     padding: 16,
-  },
-  searchInput: {
-    backgroundColor: "#f8f9fa",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#e1e5e9",
   },
   listContainer: {
     padding: 16,

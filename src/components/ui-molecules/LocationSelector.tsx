@@ -1,15 +1,14 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  TextInput, 
-  FlatList, 
+import React, { useState, useMemo } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
   StyleSheet,
-  Alert
-} from 'react-native';
-import { Center, Consultant, SessionType } from '../../types/appointment';
-import { mockCenters, mockConsultants } from '../../data/mockAppointments';
+} from "react-native";
+import { Center, Consultant, SessionType } from "../../types/appointment";
+import { mockCenters, mockConsultants } from "../../data/mockAppointments";
+import SearchInput from "../ui-atoms/SearchInput";
 
 interface LocationSelectorProps {
   sessionType: SessionType;
@@ -26,23 +25,26 @@ export default function LocationSelector({
   onCenterChange,
   onConsultantChange,
 }: LocationSelectorProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showCenterDropdown, setShowCenterDropdown] = useState(false);
   const [showConsultantDropdown, setShowConsultantDropdown] = useState(false);
 
   // Filter consultants based on selected center and search query
   const availableConsultants = useMemo(() => {
     if (!selectedCenter) return [];
-    
-    let consultants = mockConsultants.filter(c => c.centerId === selectedCenter.id);
-    
+
+    let consultants = mockConsultants.filter(
+      (c) => c.centerId === selectedCenter.id
+    );
+
     if (searchQuery.trim()) {
-      consultants = consultants.filter(c => 
-        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        c.specialty.toLowerCase().includes(searchQuery.toLowerCase())
+      consultants = consultants.filter(
+        (c) =>
+          c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          c.specialty.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    
+
     return consultants;
   }, [selectedCenter, searchQuery]);
 
@@ -55,7 +57,7 @@ export default function LocationSelector({
   const handleConsultantSelect = (consultant: Consultant) => {
     onConsultantChange(consultant);
     setShowConsultantDropdown(false);
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   const renderCenterItem = ({ item }: { item: Center }) => (
@@ -64,7 +66,9 @@ export default function LocationSelector({
       onPress={() => handleCenterSelect(item)}
     >
       <Text style={styles.itemTitle}>{item.name}</Text>
-      <Text style={styles.itemSubtitle}>{item.address}, {item.city}</Text>
+      <Text style={styles.itemSubtitle}>
+        {item.address}, {item.city}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -79,7 +83,9 @@ export default function LocationSelector({
           <Text style={styles.rating}>★ {item.rating}</Text>
         </View>
       </View>
-      <Text style={styles.itemSubtitle}>{item.specialty} • {item.experience}</Text>
+      <Text style={styles.itemSubtitle}>
+        {item.specialty} • {item.experience}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -88,16 +94,20 @@ export default function LocationSelector({
       {/* Center Selection */}
       <View style={styles.section}>
         <Text style={styles.label}>
-          {sessionType === 'in-person' ? 'Select Center' : 'Select Location'}
+          {sessionType === "in-person" ? "Select Center" : "Select Location"}
         </Text>
         <TouchableOpacity
           style={styles.selector}
           onPress={() => setShowCenterDropdown(!showCenterDropdown)}
         >
-          <Text style={selectedCenter ? styles.selectedText : styles.placeholderText}>
-            {selectedCenter ? selectedCenter.name : 'Choose a center...'}
+          <Text
+            style={
+              selectedCenter ? styles.selectedText : styles.placeholderText
+            }
+          >
+            {selectedCenter ? selectedCenter.name : "Choose a center..."}
           </Text>
-          <Text style={styles.arrow}>{showCenterDropdown ? '▲' : '▼'}</Text>
+          <Text style={styles.arrow}>{showCenterDropdown ? "▲" : "▼"}</Text>
         </TouchableOpacity>
 
         {showCenterDropdown && (
@@ -116,25 +126,35 @@ export default function LocationSelector({
       {/* Consultant Selection */}
       <View style={styles.section}>
         <Text style={styles.label}>Select Consultant</Text>
-        
+
         {selectedCenter ? (
           <>
-            <TextInput
+            <SearchInput
               style={styles.searchInput}
               placeholder="Search consultants..."
               value={searchQuery}
               onChangeText={setSearchQuery}
               onFocus={() => setShowConsultantDropdown(true)}
             />
-            
+
             <TouchableOpacity
               style={styles.selector}
               onPress={() => setShowConsultantDropdown(!showConsultantDropdown)}
             >
-              <Text style={selectedConsultant ? styles.selectedText : styles.placeholderText}>
-                {selectedConsultant ? selectedConsultant.name : 'Choose a consultant...'}
+              <Text
+                style={
+                  selectedConsultant
+                    ? styles.selectedText
+                    : styles.placeholderText
+                }
+              >
+                {selectedConsultant
+                  ? selectedConsultant.name
+                  : "Choose a consultant..."}
               </Text>
-              <Text style={styles.arrow}>{showConsultantDropdown ? '▲' : '▼'}</Text>
+              <Text style={styles.arrow}>
+                {showConsultantDropdown ? "▲" : "▼"}
+              </Text>
             </TouchableOpacity>
 
             {showConsultantDropdown && (
@@ -170,7 +190,8 @@ export default function LocationSelector({
       {selectedCenter && selectedConsultant && (
         <View style={styles.feeMessage}>
           <Text style={styles.feeText}>
-            We charge INR 100 to ensure your booking. It will be adjusted in your final payment.
+            We charge INR 100 to ensure your booking. It will be adjusted in
+            your final payment.
           </Text>
         </View>
       )}
@@ -187,52 +208,52 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 8,
     paddingHorizontal: 20,
   },
   selector: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 16,
     marginHorizontal: 20,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    borderColor: "#E5E5EA",
   },
   selectedText: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
     flex: 1,
   },
   placeholderText: {
     fontSize: 16,
-    color: '#999',
+    color: "#999",
     flex: 1,
   },
   arrow: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   searchInput: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 16,
     marginHorizontal: 20,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    borderColor: "#E5E5EA",
     fontSize: 16,
   },
   dropdown: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
     marginHorizontal: 20,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    borderColor: "#E5E5EA",
     maxHeight: 200,
   },
   dropdownList: {
@@ -241,65 +262,65 @@ const styles = StyleSheet.create({
   dropdownItem: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: "#F0F0F0",
   },
   itemTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 4,
   },
   itemSubtitle: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   consultantHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 4,
   },
   ratingContainer: {
-    backgroundColor: '#FFF8E1',
+    backgroundColor: "#FFF8E1",
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 12,
   },
   rating: {
     fontSize: 12,
-    color: '#F57C00',
-    fontWeight: '600',
+    color: "#F57C00",
+    fontWeight: "600",
   },
   noConsultants: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   noConsultantsText: {
     fontSize: 14,
-    color: '#999',
-    textAlign: 'center',
+    color: "#999",
+    textAlign: "center",
   },
   disabledSection: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     borderRadius: 8,
     padding: 16,
     marginHorizontal: 20,
   },
   disabledText: {
     fontSize: 14,
-    color: '#999',
-    textAlign: 'center',
+    color: "#999",
+    textAlign: "center",
   },
   feeMessage: {
-    backgroundColor: '#E3F2FD',
+    backgroundColor: "#E3F2FD",
     borderRadius: 8,
     padding: 16,
     marginHorizontal: 20,
   },
   feeText: {
     fontSize: 14,
-    color: '#1976D2',
-    textAlign: 'center',
+    color: "#1976D2",
+    textAlign: "center",
     lineHeight: 20,
   },
 });
