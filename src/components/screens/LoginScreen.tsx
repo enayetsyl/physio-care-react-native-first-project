@@ -1,32 +1,29 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from 'react-native';
-import { AuthNavigationProp } from '../../types/navigation';
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
+import { AuthNavigationProp } from "../../types/navigation";
+import Button from "../ui-atoms/Button";
 
 interface Props {
   navigation: AuthNavigationProp;
 }
 
 export default function LoginScreen({ navigation }: Props) {
-  const [mobile, setMobile] = useState('');
+  const [mobile, setMobile] = useState("");
 
   const handleSendOTP = () => {
     // Validate mobile number (10 digits for now)
-    const cleanedMobile = mobile.replace(/\D/g, '');
-    
+    const cleanedMobile = mobile.replace(/\D/g, "");
+
     if (cleanedMobile.length !== 10) {
-      Alert.alert('Invalid Mobile', 'Please enter a valid 10-digit mobile number');
+      Alert.alert(
+        "Invalid Mobile",
+        "Please enter a valid 10-digit mobile number"
+      );
       return;
     }
 
     // Navigate to OTP screen with mobile number
-    navigation.navigate('OTP', { mobile: cleanedMobile });
+    navigation.navigate("OTP", { mobile: cleanedMobile });
   };
 
   return (
@@ -46,9 +43,7 @@ export default function LoginScreen({ navigation }: Props) {
         />
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleSendOTP}>
-        <Text style={styles.buttonText}>Send OTP</Text>
-      </TouchableOpacity>
+      <Button title="Send OTP" onPress={handleSendOTP} />
     </View>
   );
 }
@@ -56,43 +51,32 @@ export default function LoginScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 40,
-    textAlign: 'center',
+    textAlign: "center",
   },
   inputContainer: {
     marginBottom: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
-  },
-  button: {
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    padding: 16,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: "#f9f9f9",
   },
 });

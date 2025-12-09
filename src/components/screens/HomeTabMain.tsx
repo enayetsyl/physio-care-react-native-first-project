@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/AuthContext";
 import { mockGoals } from "../../data/mockGoals";
@@ -17,6 +11,7 @@ import EmptyState from "../ui-molecules/EmptyState";
 import TabGroup from "../ui-molecules/TabGroup";
 import { HomeStackNavigationProp } from "../../types/navigation";
 import { commonStyles } from "../../styles/common";
+import Button from "../ui-atoms/Button";
 
 export default function HomeTabMain() {
   const { user } = useAuth();
@@ -43,12 +38,11 @@ export default function HomeTabMain() {
       <HomeTabHeader userName={userName} />
 
       {/* Book Appointment Button */}
-      <TouchableOpacity
-        style={styles.bookButton}
+      <Button
+        title="+ Book an appointment"
         onPress={handleBookAppointment}
-      >
-        <Text style={styles.bookButtonText}>+ Book an appointment</Text>
-      </TouchableOpacity>
+        style={styles.bookButton}
+      />
 
       {/* My Goals Section */}
       <View style={styles.goalsSection}>
@@ -87,17 +81,8 @@ export default function HomeTabMain() {
 
 const styles = StyleSheet.create({
   bookButton: {
-    backgroundColor: "#007AFF",
     marginHorizontal: 20,
     marginBottom: 24,
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  bookButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
   },
   goalsSection: {
     marginBottom: 20,

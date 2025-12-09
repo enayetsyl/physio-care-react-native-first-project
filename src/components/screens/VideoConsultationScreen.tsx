@@ -20,6 +20,7 @@ import { HomeStackNavigationProp } from "../../types/navigation";
 import { mockDateSlots } from "../../data/mockAppointments";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import { commonStyles } from "../../styles/common";
+import Button from "../ui-atoms/Button";
 
 interface VideoConsultationParams {
   center: Center;
@@ -192,24 +193,11 @@ export default function VideoConsultationScreen() {
 
         {/* Book Button */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[
-              styles.bookButton,
-              (!selectedDate || !selectedTimeSlot) && styles.disabledButton,
-            ]}
+          <Button
+            title="Confirm Booking"
             onPress={handleBookConsultation}
             disabled={!selectedDate || !selectedTimeSlot}
-          >
-            <Text
-              style={[
-                styles.bookButtonText,
-                (!selectedDate || !selectedTimeSlot) &&
-                  styles.disabledButtonText,
-              ]}
-            >
-              Confirm Booking
-            </Text>
-          </TouchableOpacity>
+          />
         </View>
       </ScrollView>
     </View>
@@ -345,22 +333,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     padding: 20,
     paddingBottom: 40,
-  },
-  bookButton: {
-    backgroundColor: "#007AFF",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  disabledButton: {
-    backgroundColor: "#E5E5EA",
-  },
-  bookButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  disabledButtonText: {
-    color: "#999",
   },
 });

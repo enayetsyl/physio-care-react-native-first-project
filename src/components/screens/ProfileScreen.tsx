@@ -12,6 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import { ProfileStackNavigationProp } from "../../types/navigation";
 import Avatar from "../ui-atoms/Avatar";
 import { commonStyles } from "../../styles/common";
+import Button from "../ui-atoms/Button";
 
 export default function ProfileScreen() {
   const { user, setUser } = useAuth();
@@ -93,9 +94,12 @@ export default function ProfileScreen() {
       </View>
 
       {/* Logout Button */}
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+      <Button
+        title="Logout"
+        variant="danger"
+        onPress={handleLogout}
+        style={styles.logoutButton}
+      />
     </ScrollView>
   );
 }
@@ -161,17 +165,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   logoutButton: {
-    backgroundColor: "#FF3B30",
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 40,
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  logoutText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

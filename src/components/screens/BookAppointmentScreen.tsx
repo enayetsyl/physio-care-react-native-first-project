@@ -1,13 +1,6 @@
 // src/components/screens/BookAppointmentScreen.tsx
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Center, Consultant, SessionType } from "../../types/appointment";
 import { HomeStackNavigationProp } from "../../types/navigation";
@@ -15,6 +8,7 @@ import SessionTypeSelector from "../ui-molecules/SessionTypeSelector";
 import LocationSelector from "../ui-molecules/LocationSelector";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import { commonStyles } from "../../styles/common";
+import Button from "../ui-atoms/Button";
 
 export default function BookAppointmentScreen() {
   const navigation = useNavigation<HomeStackNavigationProp>();
@@ -74,26 +68,15 @@ export default function BookAppointmentScreen() {
 
   const Footer = () => (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity
-        style={[
-          styles.proceedButton,
-          (!selectedCenter || !selectedConsultant) && styles.disabledButton,
-        ]}
+      <Button
+        title={
+          sessionType === "online"
+            ? "Proceed to Video Consultation"
+            : "Book Appointment"
+        }
         onPress={handleProceedToBooking}
         disabled={!selectedCenter || !selectedConsultant}
-      >
-        <Text
-          style={[
-            styles.proceedButtonText,
-            (!selectedCenter || !selectedConsultant) &&
-              styles.disabledButtonText,
-          ]}
-        >
-          {sessionType === "online"
-            ? "Proceed to Video Consultation"
-            : "Book Appointment"}
-        </Text>
-      </TouchableOpacity>
+      />
     </View>
   );
 
@@ -120,22 +103,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     padding: 20,
     paddingBottom: 40,
-  },
-  proceedButton: {
-    backgroundColor: "#007AFF",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  disabledButton: {
-    backgroundColor: "#E5E5EA",
-  },
-  proceedButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  disabledButtonText: {
-    color: "#999",
   },
 });
