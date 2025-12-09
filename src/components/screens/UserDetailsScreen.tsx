@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TextInput,
+  TouchableOpacity,
   StyleSheet,
   ScrollView,
   Alert,
@@ -225,5 +226,39 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 50,
+  },
+  form: {
+    marginTop: 10,
+    gap: 16,
+  },
+  inputGroup: {
+    marginBottom: 12,
+  },
+  radioGroup: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  radioOption: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    backgroundColor: "#f9f9f9",
+    alignItems: "center",
+  },
+  radioSelected: {
+    borderColor: "#007AFF",
+    backgroundColor: "#E8F1FF",
+  },
+  radioText: {
+    fontSize: 14,
+    color: "#333",
+    fontWeight: "500",
+  },
+  radioTextSelected: {
+    color: "#007AFF",
+    fontWeight: "600",
   },
 });
