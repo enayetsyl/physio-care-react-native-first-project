@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockClinicalRecords } from "../../data/mockClinicalRecords";
 import { ProfileStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import StatusBadge from "../ui-atoms/StatusBadge";
 import { commonStyles } from "../../styles/common";
 
 export default function ClinicalRecordsScreen() {
@@ -44,17 +45,11 @@ export default function ClinicalRecordsScreen() {
           >
             <View style={styles.recordHeader}>
               <Text style={styles.visitSummary}>{record.visitSummary}</Text>
-              <View
-                style={[
-                  styles.statusBadge,
-                  {
-                    backgroundColor:
-                      record.status === "completed" ? "#34C759" : "#FF9500",
-                  },
-                ]}
-              >
-                <Text style={styles.statusText}>{record.status}</Text>
-              </View>
+              <StatusBadge
+                status={record.status}
+                size="small"
+                style={styles.statusBadge}
+              />
             </View>
 
             <Text style={styles.consultant}>{record.consultantName}</Text>
@@ -105,15 +100,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  statusText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
-    textTransform: "capitalize",
+    alignSelf: "flex-start",
   },
   consultant: {
     fontSize: 14,

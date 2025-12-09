@@ -1,14 +1,15 @@
-import React from 'react';
-import { 
-  View, 
-  Text, 
-  Modal, 
-  TouchableOpacity, 
-  StyleSheet, 
+import React from "react";
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  StyleSheet,
   ScrollView,
-  FlatList
-} from 'react-native';
-import { Session } from '../../types/session';
+  FlatList,
+} from "react-native";
+import StatusBadge from "../ui-atoms/StatusBadge";
+import { Session } from "../../types/session";
 
 interface AppointmentDetailsSheetProps {
   visible: boolean;
@@ -16,40 +17,37 @@ interface AppointmentDetailsSheetProps {
   onClose: () => void;
 }
 
-export default function AppointmentDetailsSheet({ 
-  visible, 
-  session, 
-  onClose 
+export default function AppointmentDetailsSheet({
+  visible,
+  session,
+  onClose,
 }: AppointmentDetailsSheetProps) {
   if (!session) return null;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'upcoming': return '#007AFF';
-      case 'completed': return '#34C759';
-      case 'cancelled': return '#FF3B30';
-      default: return '#8E8E93';
-    }
   };
 
   const renderExercise = ({ item }: { item: any }) => (
     <View style={styles.exerciseItem}>
       <Text style={styles.exerciseName}>{item.name}</Text>
       <View style={styles.exerciseDetails}>
-        {item.weight && <Text style={styles.exerciseDetail}>{item.weight}</Text>}
-        {item.sets && item.reps && (
-          <Text style={styles.exerciseDetail}>{item.sets} sets × {item.reps} reps</Text>
+        {item.weight && (
+          <Text style={styles.exerciseDetail}>{item.weight}</Text>
         )}
-        {item.duration && <Text style={styles.exerciseDetail}>{item.duration}</Text>}
+        {item.sets && item.reps && (
+          <Text style={styles.exerciseDetail}>
+            {item.sets} sets × {item.reps} reps
+          </Text>
+        )}
+        {item.duration && (
+          <Text style={styles.exerciseDetail}>{item.duration}</Text>
+        )}
       </View>
     </View>
   );
@@ -74,7 +72,9 @@ export default function AppointmentDetailsSheet({
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Consultant</Text>
             <Text style={styles.consultantName}>{session.consultant.name}</Text>
-            <Text style={styles.consultantSpecialty}>{session.consultant.specialty}</Text>
+            <Text style={styles.consultantSpecialty}>
+              {session.consultant.specialty}
+            </Text>
           </View>
 
           <View style={styles.section}>
@@ -97,9 +97,11 @@ export default function AppointmentDetailsSheet({
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Status:</Text>
-              <Text style={[styles.infoValue, { color: getStatusColor(session.status) }]}>
-                {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
-              </Text>
+              <StatusBadge
+                status={session.status}
+                size="small"
+                style={styles.statusBadge}
+              />
             </View>
           </View>
 
@@ -111,7 +113,9 @@ export default function AppointmentDetailsSheet({
           )}
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Exercises ({session.completedExercises}/{session.totalExercises})</Text>
+            <Text style={styles.sectionTitle}>
+              Exercises ({session.completedExercises}/{session.totalExercises})
+            </Text>
             <FlatList
               data={session.exercises}
               keyExtractor={(item) => item.id}
@@ -135,35 +139,35 @@ export default function AppointmentDetailsSheet({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: "#E5E5EA",
   },
   closeButton: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#F2F2F7',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#F2F2F7",
+    alignItems: "center",
+    justifyContent: "center",
   },
   closeButtonText: {
     fontSize: 18,
-    color: '#007AFF',
-    fontWeight: 'bold',
+    color: "#007AFF",
+    fontWeight: "bold",
   },
   headerTitle: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    fontWeight: '600',
-    color: '#1C1C1E',
+    fontWeight: "600",
+    color: "#1C1C1E",
   },
   headerSpacer: {
     width: 32,
@@ -177,63 +181,66 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1C1C1E',
+    fontWeight: "600",
+    color: "#1C1C1E",
     marginBottom: 8,
   },
   consultantName: {
     fontSize: 18,
-    fontWeight: '500',
-    color: '#1C1C1E',
+    fontWeight: "500",
+    color: "#1C1C1E",
     marginBottom: 4,
   },
   consultantSpecialty: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: "#8E8E93",
   },
   centerName: {
     fontSize: 16,
-    color: '#1C1C1E',
+    color: "#1C1C1E",
   },
   infoRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 8,
   },
   infoLabel: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: "#8E8E93",
     width: 80,
   },
   infoValue: {
     fontSize: 14,
-    color: '#1C1C1E',
+    color: "#1C1C1E",
     flex: 1,
   },
+  statusBadge: {
+    alignSelf: "flex-start",
+  },
   exerciseItem: {
-    backgroundColor: '#F2F2F7',
+    backgroundColor: "#F2F2F7",
     padding: 12,
     borderRadius: 8,
     marginBottom: 8,
   },
   exerciseName: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#1C1C1E',
+    fontWeight: "500",
+    color: "#1C1C1E",
     marginBottom: 4,
   },
   exerciseDetails: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   exerciseDetail: {
     fontSize: 12,
-    color: '#8E8E93',
+    color: "#8E8E93",
     marginRight: 12,
     marginBottom: 2,
   },
   notes: {
     fontSize: 14,
-    color: '#1C1C1E',
+    color: "#1C1C1E",
     lineHeight: 20,
   },
 });

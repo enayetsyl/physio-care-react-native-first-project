@@ -12,6 +12,8 @@ import { mockSupportTickets } from "../../data/mockSupport";
 import { SupportTicket } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
+import StatusBadge from "../ui-atoms/StatusBadge";
+import { getPriorityColor } from "../../utils/statusColors";
 import { commonStyles } from "../../styles/common";
 
 export default function PreviousTicketsScreen() {
@@ -25,32 +27,6 @@ export default function PreviousTicketsScreen() {
       }\nCategory: ${ticket.category}\nPriority: ${ticket.priority}`,
       [{ text: "OK" }]
     );
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "open":
-        return "#34C759";
-      case "closed":
-        return "#8E8E93";
-      case "pending":
-        return "#FF9500";
-      default:
-        return "#8E8E93";
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "high":
-        return "#FF3B30";
-      case "medium":
-        return "#FF9500";
-      case "low":
-        return "#34C759";
-      default:
-        return "#8E8E93";
-    }
   };
 
   const formatDate = (dateString: string) => {
@@ -69,26 +45,21 @@ export default function PreviousTicketsScreen() {
     >
       <View style={styles.ticketHeader}>
         <Text style={styles.ticketTitle}>{item.title}</Text>
-        <View
-          style={[
-            styles.statusBadge,
-            { backgroundColor: getStatusColor(item.status) },
-          ]}
-        >
-          <Text style={styles.statusText}>{item.status}</Text>
-        </View>
+        <StatusBadge
+          status={item.status}
+          size="small"
+          style={styles.statusBadge}
+        />
       </View>
 
       <View style={styles.ticketMeta}>
         <Text style={styles.ticketCategory}>{item.category}</Text>
-        <View
-          style={[
-            styles.priorityBadge,
-            { backgroundColor: getPriorityColor(item.priority) },
-          ]}
-        >
-          <Text style={styles.priorityText}>{item.priority}</Text>
-        </View>
+        <StatusBadge
+          status={item.priority}
+          customColor={getPriorityColor(item.priority)}
+          size="small"
+          style={styles.priorityBadge}
+        />
       </View>
 
       <View style={styles.ticketFooter}>
@@ -156,15 +127,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  statusText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
-    textTransform: "capitalize",
+    alignSelf: "flex-start",
   },
   ticketMeta: {
     flexDirection: "row",
@@ -177,15 +140,7 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   priorityBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  priorityText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
-    textTransform: "capitalize",
+    alignSelf: "flex-start",
   },
   ticketFooter: {
     flexDirection: "row",

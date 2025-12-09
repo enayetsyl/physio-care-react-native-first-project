@@ -9,6 +9,7 @@ import {
 import { mockRegimens } from "../../data/mockRegimen";
 import { Regimen, RegimenTabType } from "../../types/regimen";
 import ProgressBar from "../ui-atoms/ProgressBar";
+import StatusBadge from "../ui-atoms/StatusBadge";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
 import { commonStyles } from "../../styles/common";
@@ -62,27 +63,18 @@ export default function RegimenTab() {
             >
               <View style={styles.regimenHeader}>
                 <Text style={styles.regimenName}>{regimen.name}</Text>
-                <View
-                  style={[
-                    styles.statusBadge,
-                    {
-                      backgroundColor:
-                        regimen.status === "completed"
-                          ? "#34C759"
-                          : regimen.status === "in-progress"
-                          ? "#FF9500"
-                          : "#8E8E93",
-                    },
-                  ]}
-                >
-                  <Text style={styles.statusText}>
-                    {regimen.status === "not-started"
+                <StatusBadge
+                  status={regimen.status}
+                  label={
+                    regimen.status === "not-started"
                       ? "Not Started"
                       : regimen.status === "in-progress"
                       ? "In Progress"
-                      : "Completed"}
-                  </Text>
-                </View>
+                      : "Completed"
+                  }
+                  size="small"
+                  style={styles.statusBadge}
+                />
               </View>
 
               <Text style={styles.progressText}>
@@ -155,11 +147,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
-  },
-  statusText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
   },
   progressText: {
     fontSize: 14,

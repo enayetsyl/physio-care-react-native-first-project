@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import ProgressBar from "../ui-atoms/ProgressBar";
+import StatusBadge from "../ui-atoms/StatusBadge";
 import { Session } from "../../types/session";
 
 interface SessionCardProps {
@@ -15,19 +16,6 @@ export default function SessionCard({ session, onPress }: SessionCardProps) {
       day: "numeric",
       month: "long",
     });
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "upcoming":
-        return "#007AFF";
-      case "completed":
-        return "#34C759";
-      case "cancelled":
-        return "#FF3B30";
-      default:
-        return "#8E8E93";
-    }
   };
 
   const getStatusText = (status: string) => {
@@ -57,11 +45,12 @@ export default function SessionCard({ session, onPress }: SessionCardProps) {
       <View style={styles.rightSection}>
         <View style={styles.headerRow}>
           <Text style={styles.sessionType}>{session.type}</Text>
-          <Text
-            style={[styles.status, { color: getStatusColor(session.status) }]}
-          >
-            {getStatusText(session.status)}
-          </Text>
+          <StatusBadge
+            status={session.status}
+            label={getStatusText(session.status)}
+            size="small"
+            style={styles.statusBadge}
+          />
         </View>
 
         <Text style={styles.consultantName}>{session.consultant.name}</Text>
@@ -121,9 +110,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#007AFF",
   },
-  status: {
-    fontSize: 12,
-    fontWeight: "500",
+  statusBadge: {
+    marginLeft: 8,
   },
   consultantName: {
     fontSize: 16,
