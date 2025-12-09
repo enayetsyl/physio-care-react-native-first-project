@@ -14,6 +14,7 @@ import { SupportStackNavigationProp } from "../../types/navigation";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import StatusBadge from "../ui-atoms/StatusBadge";
 import { getPriorityColor } from "../../utils/statusColors";
+import EmptyState from "../ui-molecules/EmptyState";
 import { commonStyles } from "../../styles/common";
 
 export default function PreviousTicketsScreen() {
@@ -89,9 +90,10 @@ export default function PreviousTicketsScreen() {
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No previous tickets found</Text>
-          </View>
+          <EmptyState
+            title="No previous tickets found"
+            style={styles.emptyContainer}
+          />
         }
       />
     </View>
@@ -151,14 +153,6 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     paddingTop: 100,
-  },
-  emptyText: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
   },
 });

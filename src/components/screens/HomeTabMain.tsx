@@ -13,6 +13,7 @@ import { Goal, GoalTabType } from "../../types/goal";
 import HomeTabHeader from "../ui-molecules/HomeTabHeader";
 import GoalCard from "../ui-molecules/GoalCard";
 import HealthChart from "../ui-molecules/HealthChart";
+import EmptyState from "../ui-molecules/EmptyState";
 import TabGroup from "../ui-molecules/TabGroup";
 import { HomeStackNavigationProp } from "../../types/navigation";
 import { commonStyles } from "../../styles/common";
@@ -73,11 +74,7 @@ export default function HomeTabMain() {
               />
             ))
           ) : (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyStateText}>
-                No {activeTab} goals yet
-              </Text>
-            </View>
+            <EmptyState title={`No ${activeTab} goals yet`} />
           )}
         </View>
       </View>
@@ -114,13 +111,5 @@ const styles = StyleSheet.create({
   },
   goalsList: {
     paddingHorizontal: 20,
-  },
-  emptyState: {
-    padding: 40,
-    alignItems: "center",
-  },
-  emptyStateText: {
-    fontSize: 14,
-    color: "#999",
   },
 });

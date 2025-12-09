@@ -6,6 +6,7 @@ import SessionCard from "../ui-molecules/SessionCard";
 import AppointmentDetailsSheet from "../ui-molecules/AppointmentDetailsSheet";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
+import EmptyState from "../ui-molecules/EmptyState";
 import { commonStyles } from "../../styles/common";
 import SearchInput from "../ui-atoms/SearchInput";
 
@@ -100,16 +101,13 @@ export default function TimelineTab() {
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>
-              No {activeTab} appointments found
-            </Text>
-            {searchQuery && (
-              <Text style={styles.emptySubtext}>
-                Try adjusting your search terms
-              </Text>
-            )}
-          </View>
+          <EmptyState
+            title={`No ${activeTab} appointments found`}
+            subtitle={
+              searchQuery ? "Try adjusting your search terms" : undefined
+            }
+            style={styles.emptyContainer}
+          />
         }
       />
 
@@ -135,21 +133,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     paddingTop: 100,
-  },
-  emptyText: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#8E8E93",
-    textAlign: "center",
-  },
-  emptySubtext: {
-    fontSize: 14,
-    color: "#C7C7CC",
-    textAlign: "center",
-    marginTop: 8,
   },
 });

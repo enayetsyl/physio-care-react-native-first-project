@@ -12,6 +12,7 @@ import ProgressBar from "../ui-atoms/ProgressBar";
 import StatusBadge from "../ui-atoms/StatusBadge";
 import ScreenHeader from "../ui-molecules/ScreenHeader";
 import TabGroup from "../ui-molecules/TabGroup";
+import EmptyState from "../ui-molecules/EmptyState";
 import { commonStyles } from "../../styles/common";
 
 export default function RegimenTab() {
@@ -98,17 +99,15 @@ export default function RegimenTab() {
             </TouchableOpacity>
           ))
         ) : (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>
-              No{" "}
-              {activeTab === "not-started"
+          <EmptyState
+            title={`No ${
+              activeTab === "not-started"
                 ? "upcoming"
                 : activeTab === "in-progress"
                 ? "active"
-                : "completed"}{" "}
-              regimens
-            </Text>
-          </View>
+                : "completed"
+            } regimens`}
+          />
         )}
       </View>
     </ScrollView>
@@ -155,14 +154,6 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 12,
-    color: "#999",
-  },
-  emptyState: {
-    padding: 40,
-    alignItems: "center",
-  },
-  emptyStateText: {
-    fontSize: 14,
     color: "#999",
   },
 });
