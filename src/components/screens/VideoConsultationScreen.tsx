@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,12 +6,19 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  FlatList
-} from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Center, Consultant, SessionType, DateSlot, TimeSlot } from '../../types/appointment';
-import { HomeStackNavigationProp } from '../../types/navigation';
-import { mockDateSlots } from '../../data/mockAppointments';
+  FlatList,
+} from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  Center,
+  Consultant,
+  SessionType,
+  DateSlot,
+  TimeSlot,
+} from "../../types/appointment";
+import { HomeStackNavigationProp } from "../../types/navigation";
+import { mockDateSlots } from "../../data/mockAppointments";
+import BackButton from "../ui-atoms/BackButton";
 
 interface VideoConsultationParams {
   center: Center;
@@ -22,27 +29,28 @@ interface VideoConsultationParams {
 export default function VideoConsultationScreen() {
   const navigation = useNavigation<HomeStackNavigationProp>();
   const route = useRoute();
-  const { center, consultant, sessionType } = route.params as VideoConsultationParams;
+  const { center, consultant, sessionType } =
+    route.params as VideoConsultationParams;
 
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<TimeSlot | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<TimeSlot | null>(
+    null
+  );
 
   const handleBookConsultation = () => {
     if (!selectedDate || !selectedTimeSlot) {
       Alert.alert(
-        'Selection Required',
-        'Please select both a date and time slot to book your consultation.',
-        [{ text: 'OK' }]
+        "Selection Required",
+        "Please select both a date and time slot to book your consultation.",
+        [{ text: "OK" }]
       );
       return;
     }
 
     Alert.alert(
-      'Booking Confirmed',
+      "Booking Confirmed",
       `Your video consultation with ${consultant.name} has been booked for ${selectedDate} at ${selectedTimeSlot.time}.`,
-      [
-        { text: 'OK', onPress: () => navigation.goBack() }
-      ]
+      [{ text: "OK", onPress: () => navigation.goBack() }]
     );
   };
 
@@ -50,29 +58,35 @@ export default function VideoConsultationScreen() {
     <TouchableOpacity
       style={[
         styles.dateCard,
-        selectedDate === item.date && styles.selectedDateCard
+        selectedDate === item.date && styles.selectedDateCard,
       ]}
       onPress={() => {
         setSelectedDate(item.date);
         setSelectedTimeSlot(null); // Reset time slot when date changes
       }}
     >
-      <Text style={[
-        styles.dayName,
-        selectedDate === item.date && styles.selectedText
-      ]}>
+      <Text
+        style={[
+          styles.dayName,
+          selectedDate === item.date && styles.selectedText,
+        ]}
+      >
         {item.dayName}
       </Text>
-      <Text style={[
-        styles.dayNumber,
-        selectedDate === item.date && styles.selectedText
-      ]}>
+      <Text
+        style={[
+          styles.dayNumber,
+          selectedDate === item.date && styles.selectedText,
+        ]}
+      >
         {item.dayNumber}
       </Text>
-      <Text style={[
-        styles.month,
-        selectedDate === item.date && styles.selectedText
-      ]}>
+      <Text
+        style={[
+          styles.month,
+          selectedDate === item.date && styles.selectedText,
+        ]}
+      >
         {item.month}
       </Text>
     </TouchableOpacity>
@@ -83,43 +97,46 @@ export default function VideoConsultationScreen() {
       style={[
         styles.timeSlot,
         !item.available && styles.unavailableSlot,
-        selectedTimeSlot?.id === item.id && styles.selectedTimeSlot
+        selectedTimeSlot?.id === item.id && styles.selectedTimeSlot,
       ]}
       onPress={() => item.available && setSelectedTimeSlot(item)}
       disabled={!item.available}
     >
-      <Text style={[
-        styles.timeText,
-        !item.available && styles.unavailableText,
-        selectedTimeSlot?.id === item.id && styles.selectedTimeText
-      ]}>
+      <Text
+        style={[
+          styles.timeText,
+          !item.available && styles.unavailableText,
+          selectedTimeSlot?.id === item.id && styles.selectedTimeText,
+        ]}
+      >
         {item.time}
       </Text>
     </TouchableOpacity>
   );
 
-  const selectedDateData = mockDateSlots.find(slot => slot.date === selectedDate);
+  const selectedDateData = mockDateSlots.find(
+    (slot) => slot.date === selectedDate
+  );
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButtonContainer}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.backButton}>← Back</Text>
-        </TouchableOpacity>
+        <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.title}>Video Consultation</Text>
       </View>
 
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Consultant Info */}
         <View style={styles.consultantCard}>
           <Text style={styles.consultantName}>{consultant.name}</Text>
           <Text style={styles.consultantSpecialty}>{consultant.specialty}</Text>
-          <Text style={styles.consultantExperience}>{consultant.experience} experience</Text>
+          <Text style={styles.consultantExperience}>
+            {consultant.experience} experience
+          </Text>
           <View style={styles.ratingContainer}>
             <Text style={styles.rating}>★ {consultant.rating}</Text>
           </View>
@@ -150,16 +167,19 @@ export default function VideoConsultationScreen() {
                   style={[
                     styles.timeSlot,
                     !slot.available && styles.unavailableSlot,
-                    selectedTimeSlot?.id === slot.id && styles.selectedTimeSlot
+                    selectedTimeSlot?.id === slot.id && styles.selectedTimeSlot,
                   ]}
                   onPress={() => slot.available && setSelectedTimeSlot(slot)}
                   disabled={!slot.available}
                 >
-                  <Text style={[
-                    styles.timeText,
-                    !slot.available && styles.unavailableText,
-                    selectedTimeSlot?.id === slot.id && styles.selectedTimeText
-                  ]}>
+                  <Text
+                    style={[
+                      styles.timeText,
+                      !slot.available && styles.unavailableText,
+                      selectedTimeSlot?.id === slot.id &&
+                        styles.selectedTimeText,
+                    ]}
+                  >
                     {slot.time}
                   </Text>
                 </TouchableOpacity>
@@ -173,15 +193,18 @@ export default function VideoConsultationScreen() {
           <TouchableOpacity
             style={[
               styles.bookButton,
-              (!selectedDate || !selectedTimeSlot) && styles.disabledButton
+              (!selectedDate || !selectedTimeSlot) && styles.disabledButton,
             ]}
             onPress={handleBookConsultation}
             disabled={!selectedDate || !selectedTimeSlot}
           >
-            <Text style={[
-              styles.bookButtonText,
-              (!selectedDate || !selectedTimeSlot) && styles.disabledButtonText
-            ]}>
+            <Text
+              style={[
+                styles.bookButtonText,
+                (!selectedDate || !selectedTimeSlot) &&
+                  styles.disabledButtonText,
+              ]}
+            >
               Confirm Booking
             </Text>
           </TouchableOpacity>
@@ -194,42 +217,29 @@ export default function VideoConsultationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   header: {
     padding: 20,
     paddingTop: 60,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
-    backgroundColor: '#fff',
-  },
-  backButtonContainer: {
-    paddingVertical: 8,
-    paddingRight: 16,
-    alignSelf: 'flex-start',
-    minHeight: 44,
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  backButton: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '600',
+    borderBottomColor: "#E5E5EA",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   scrollView: {
     flex: 1,
   },
   consultantCard: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     margin: 20,
     padding: 16,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -237,39 +247,39 @@ const styles = StyleSheet.create({
   },
   consultantName: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 4,
   },
   consultantSpecialty: {
     fontSize: 14,
-    color: '#007AFF',
+    color: "#007AFF",
     marginBottom: 2,
   },
   consultantExperience: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginBottom: 8,
   },
   ratingContainer: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#FFF8E1',
+    alignSelf: "flex-start",
+    backgroundColor: "#FFF8E1",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
   },
   rating: {
     fontSize: 14,
-    color: '#F57C00',
-    fontWeight: '600',
+    color: "#F57C00",
+    fontWeight: "600",
   },
   section: {
     marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 12,
     paddingHorizontal: 20,
   },
@@ -280,91 +290,91 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   dateCard: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
     marginRight: 12,
-    alignItems: 'center',
+    alignItems: "center",
     minWidth: 70,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    borderColor: "#E5E5EA",
   },
   selectedDateCard: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: "#007AFF",
+    borderColor: "#007AFF",
   },
   dayName: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
     marginBottom: 4,
   },
   dayNumber: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 2,
   },
   month: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
   selectedText: {
-    color: '#fff',
+    color: "#fff",
   },
   timeSlotsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingHorizontal: 20,
     gap: 12,
   },
   timeSlot: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    borderColor: "#E5E5EA",
     minWidth: 100,
-    alignItems: 'center',
+    alignItems: "center",
   },
   selectedTimeSlot: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: "#007AFF",
+    borderColor: "#007AFF",
   },
   unavailableSlot: {
-    backgroundColor: '#F5F5F5',
-    borderColor: '#E5E5EA',
+    backgroundColor: "#F5F5F5",
+    borderColor: "#E5E5EA",
   },
   timeText: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
   selectedTimeText: {
-    color: '#fff',
+    color: "#fff",
   },
   unavailableText: {
-    color: '#999',
+    color: "#999",
   },
   buttonContainer: {
     padding: 20,
     paddingBottom: 40,
   },
   bookButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
   disabledButton: {
-    backgroundColor: '#E5E5EA',
+    backgroundColor: "#E5E5EA",
   },
   bookButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   disabledButtonText: {
-    color: '#999',
+    color: "#999",
   },
 });

@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockChatConversations } from "../../data/mockSupport";
 import { ChatConversation } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
+import BackButton from "../ui-atoms/BackButton";
 import Avatar from "../ui-atoms/Avatar";
 
 export default function ChatScreen() {
@@ -92,12 +93,13 @@ export default function ChatScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
+        <BackButton
           onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.backText}>←</Text>
-        </TouchableOpacity>
+          label=""
+          icon="arrow"
+          style={styles.backButton}
+          textStyle={styles.backText}
+        />
         <Text style={styles.headerTitle}>Chat with Us</Text>
       </View>
 

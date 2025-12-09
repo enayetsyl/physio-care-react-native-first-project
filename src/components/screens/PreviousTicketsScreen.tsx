@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mockSupportTickets } from "../../data/mockSupport";
 import { SupportTicket } from "../../types/support";
 import { SupportStackNavigationProp } from "../../types/navigation";
+import BackButton from "../ui-atoms/BackButton";
 
 export default function PreviousTicketsScreen() {
   const navigation = useNavigation<SupportStackNavigationProp>();
@@ -103,12 +104,13 @@ export default function PreviousTicketsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
+        <BackButton
           onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.backText}>←</Text>
-        </TouchableOpacity>
+          label=""
+          icon="arrow"
+          style={styles.backButton}
+          textStyle={styles.backText}
+        />
         <Text style={styles.headerTitle}>Previous Tickets</Text>
       </View>
 

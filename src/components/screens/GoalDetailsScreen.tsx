@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { HomeStackParamList } from "../../types/navigation";
 import { mockGoals } from "../../data/mockGoals";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProgressBar from "../ui-atoms/ProgressBar";
+import BackButton from "../ui-atoms/BackButton";
 
 type GoalDetailsRouteProp = RouteProp<HomeStackParamList, "GoalDetails">;
 
@@ -33,13 +28,7 @@ export default function GoalDetailsScreen() {
     <View style={styles.container}>
       <SafeAreaView edges={["top"]} style={styles.safeArea}>
         <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backButtonContainer}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.backButton}>← Back</Text>
-          </TouchableOpacity>
+          <BackButton onPress={() => navigation.goBack()} />
         </View>
       </SafeAreaView>
       <ScrollView
@@ -130,18 +119,6 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 10,
-  },
-  backButtonContainer: {
-    paddingRight: 16,
-    paddingLeft: 16,
-    alignSelf: "flex-start",
-    minHeight: 22, // Minimum touch target size
-    justifyContent: "center",
-  },
-  backButton: {
-    fontSize: 16,
-    color: "#007AFF",
-    fontWeight: "600",
   },
   section: {
     backgroundColor: "#fff",
